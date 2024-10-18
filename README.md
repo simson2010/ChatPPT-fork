@@ -49,7 +49,7 @@ pip install -r requirements.txt
 您可以通过命令行模式运行 ChatPPT：
 
 ```sh
-python src/main.py test_input.md
+python src/main.py inputs/test_input.md
 ```
 
 通过此模式，您可以手动提供 PowerPoint 文件内容（格式请参考：[ChatPPT 输入文本格式说明](docs/ppt_input_format.md)），并按照配置的 [PowerPoint 模板](templates/StandardTemplate.pptx),生成演示文稿。

@@ -3,8 +3,8 @@
     "ppt_template": "templates/MasterTemplate.pptx",
     "layout_mapping": {
         "Title Only": 0,
-        "Title and Content": 1,
-        "Title and Picture": 2,
-        "Title, Content, and Picture": 3
+        "Title and Content": 3,
+        "Title and Picture": 10,
+        "Title, Content, and Picture": 6
     }
 }
