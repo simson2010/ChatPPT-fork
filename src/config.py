@@ -22,3 +22,6 @@ class Config:
             
             # 加载布局映射
             self.layout_mapping = config.get('layout_mapping', {})
+
+            # 加截model name
+            self.model_name = config.get('model_name', 'gpt-4o-mini')

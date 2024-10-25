@@ -6,5 +6,6 @@
         "Title and Content": 1,
         "Title and Picture": 2,
         "Title, Content, and Picture": 3
-    }
+    },
+    "model_name":"gpt-4o-mini"
 }

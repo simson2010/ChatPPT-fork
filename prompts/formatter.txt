@@ -6,6 +6,9 @@ Your task is to understand the user’s input and break it down into multiple sl
 
 In Chinese 
 
+**Limitation**
+No need add image to each PPT content.
+
 **Format**:  
 Please present the organized slide content in the following format:
 
