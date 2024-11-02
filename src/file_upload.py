@@ -28,10 +28,10 @@ class ImageUploader:
 
     def handle_response_json(self, resJson):
         if resJson and resJson['code'] == 0:
-            LOG.debug(f'uploaded file id is : {resJson['data']['id']}, name: {resJson['data']['file_name']}, {resJson['data']['bytes']}')
+            LOG.debug(f'uploaded file id is : {resJson["data"]["id"]}, name: {resJson["data"]["file_name"]}, {resJson["data"]["bytes"]}')
             return resJson['data']['id']
         else: 
-            LOG.debug(f'[upload failed]{resJson['code']} | {resJson['msg']}')
+            LOG.debug(f'[upload failed]{resJson["code"]} | {resJson["msg"]}')
             return -1
 
 # Example usage:
