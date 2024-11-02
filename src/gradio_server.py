@@ -10,10 +10,17 @@ from ppt_generator import generate_presentation
 from template_manager import load_template, get_layout_mapping
 from layout_manager import LayoutManager
 from logger import LOG
-from openai_whisper import asr, transcribe
-from minicpm_v_model import chat_with_image
+# from openai_whisper import asr, transcribe
+#from minicpm_v_model import chat_with_image
+from chat_with_image_online import send_image_and_text_to_coze
 from docx_parser import generate_markdown_from_docx
 
+
+def asr(a,b):
+    return 'hello sounds'
+
+# def chat_with_image(upload_file, text):
+#     return "hello image"
 
 # 实例化 Config，加载配置文件
 config = Config()
@@ -30,6 +37,7 @@ layout_manager = LayoutManager(get_layout_mapping(ppt_template))
 
 # 定义生成幻灯片内容的函数
 def generate_contents(message, history):
+    LOG.debug(message)
     try:
         # 初始化一个列表，用于收集用户输入的文本和音频转录
         texts = []
@@ -51,9 +59,11 @@ def generate_contents(message, history):
             # 解释说明图像文件
             elif file_ext in ('.jpg', '.png', '.jpeg'):
                 if text_input:
-                    image_desc = chat_with_image(uploaded_file, text_input)
+                   # image_desc = chat_with_image(uploaded_file, text_input)
+                   image_desc = send_image_and_text_to_coze(uploaded_file, text_input)
                 else:
-                    image_desc = chat_with_image(uploaded_file)
+                    # image_desc = chat_with_image(uploaded_file)
+                    image_desc = send_image_and_text_to_coze(uploaded_file)
                 return image_desc
             # 使用 Docx 文件作为素材创建 PowerPoint
             elif file_ext in ('.docx', '.doc'):
@@ -80,11 +90,13 @@ def generate_contents(message, history):
 
 # 定义处理生成按钮点击事件的函数
 def handle_generate(history):
+    LOG.debug(history)
     try:
         # 获取聊天记录中的最新内容
         slides_content = history[-1]["content"]
         # 解析输入文本，生成幻灯片数据和演示文稿标题
         powerpoint_data, presentation_title = parse_input_text(slides_content, layout_manager)
+        LOG.debug(f'[created a title][for slide]{presentation_title}')
         # 定义输出的 PowerPoint 文件路径
         output_pptx = f"outputs/{presentation_title}.pptx"
         
@@ -95,6 +107,10 @@ def handle_generate(history):
         LOG.error(f"[PPT 生成错误]: {e}")
         # 提示用户先输入主题内容或上传文件
         raise gr.Error(f"【提示】请先输入你的主题内容或上传文件")
+
+def common_chat(message, history):
+    LOG.debug(f"common:{message}")
+    return message
 
 # 创建 Gradio 界面
 with gr.Blocks(
@@ -121,7 +137,7 @@ with gr.Blocks(
     # 创建聊天机器人界面，提示用户输入
     contents_chatbot = gr.Chatbot(
         placeholder="<strong>AI 一键生成 PPT</strong><br><br>输入你的主题内容或上传音频文件",
-        height=800,
+        height=650,
         type="messages",
     )
 
@@ -147,7 +163,8 @@ with gr.Blocks(
 if __name__ == "__main__":
     # 启动Gradio应用，允许队列功能，并通过 HTTPS 访问
     demo.queue().launch(
-        share=False,
+        share=True,
         server_name="0.0.0.0",
         # auth=("django", "1234") # ⚠️注意：记住修改密码
     )
+    

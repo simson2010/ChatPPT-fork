@@ -13,7 +13,7 @@ BATCH_SIZE = 8  # 处理批次大小
 
 # 检查是否可以使用 GPU，否则使用 CPU
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
-
+print(f'device:{device}')
 # 初始化语音识别管道
 pipe = pipeline(
     task="automatic-speech-recognition",  # 自动语音识别任务
@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
     # 启动Gradio应用，允许队列功能，并通过 HTTPS 访问
     demo.queue().launch(
-        share=False,
+        share=True,
         server_name="0.0.0.0",
         # auth=("django", "1234") # ⚠️注意：记住修改密码
     )

@@ -49,5 +49,5 @@ if __name__ == "__main__":
 
     image_file = sys.argv[1]  # 获取命令行传入的图像文件路径
     question = 'What is in the image?'  # 定义默认问题
-    response = chat_with_image(image_file, question, sampling=True, temperature=0.7, stream=True)  # 调用生成响应函数
+    response = chat_with_image(image_file, question, sampling=True, temperature=0.7, stream=False)  # 调用生成响应函数
     print("\nFinal Response:", response)  # 输出最终响应
