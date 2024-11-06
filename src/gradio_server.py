@@ -13,7 +13,7 @@ from ppt_generator import generate_presentation
 from template_manager import load_template, get_layout_mapping
 from layout_manager import LayoutManager
 from logger import LOG
-from openai_whisper import asr, transcribe
+from openwhisper_online import asr
 # from minicpm_v_model import chat_with_image
 from docx_parser import generate_markdown_from_docx
 
@@ -151,7 +151,7 @@ with gr.Blocks(
     # 创建聊天机器人界面，提示用户输入
     contents_chatbot = gr.Chatbot(
         placeholder="<strong>AI 一键生成 PPT</strong><br><br>输入你的主题内容或上传音频文件",
-        height=800,
+        height=480,
         type="messages",
     )
 

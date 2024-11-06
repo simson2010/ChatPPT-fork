@@ -12,6 +12,8 @@ from langchain_core.prompts import ChatPromptTemplate
 
 from logger import LOG  # 导入日志工具
 
+from zhipuai_image import generate_image_zhipu
+
 class ImageAdvisor(ABC):
     """
     聊天机器人基类，提供建议配图的功能。
@@ -72,7 +74,8 @@ class ImageAdvisor(ABC):
 
         for slide_title, query in keywords.items():
             # 检索图像
-            images = self.get_bing_images(slide_title, query, num_images, timeout=1, retries=3)
+            # images = self.get_bing_images(slide_title, query, num_images, timeout=1, retries=3)
+            images = self.create_zhipu_images(slide_title, slide_title + "," + query)
             if images:
                 for image in images:
                     LOG.debug(f"Name: {image['slide_title']}, Query: {image['query']} 分辨率：{image['width']}x{image['height']}")
@@ -233,3 +236,19 @@ class ImageAdvisor(ABC):
             i += 1
         new_content = '\n'.join(new_lines)
         return new_content
+
+    def create_zhipu_images(self, slide_title, query):
+        image_data = []
+        img_url = generate_image_zhipu(query)
+        response = requests.get(img_url)
+        img = Image.open(BytesIO(response.content))
+        image_info = {
+            "slide_title": slide_title,
+            "query": query,
+            "width": img.width,
+            "height": img.height,
+            "resolution": img.width * img.height,
+            "obj": img,
+        }
+        image_data.append(image_info)
+        return image_data
