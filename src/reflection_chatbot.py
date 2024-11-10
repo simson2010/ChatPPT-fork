@@ -76,7 +76,7 @@ class ChatBot(ABC):
         llm_reflection = ChatOpenAI(api_key=xai_key,model="grok-beta", max_tokens=4096, temperature=0, base_url="https://api.x.ai/v1")
         self.reflect = reflection_prompt | llm_reflection
 
-        self.builder = create_builder(self.chatbot_with_history, self.reflect)
+        self.builder = create_builder(self.chatbot, self.reflect)
     
     async def chat_with_history(self, user_input, session_id=None):
         """
