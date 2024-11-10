@@ -4,7 +4,7 @@ import os
 from gradio.data_classes import FileData
 
 from config import Config
-from chatbot import ChatBot
+from reflection_chatbot import ChatBot
 from content_formatter import ContentFormatter
 from content_assistant import ContentAssistant
 from image_advisor import ImageAdvisor
@@ -36,7 +36,7 @@ layout_manager = LayoutManager(get_layout_mapping(ppt_template))
 
 
 # 定义生成幻灯片内容的函数
-def generate_contents(message, history):
+async def generate_contents(message, history):
     try:
         # 初始化一个列表，用于收集用户输入的文本和音频转录
         texts = []
@@ -76,7 +76,7 @@ def generate_contents(message, history):
         LOG.info(user_requirement)
 
         # 与聊天机器人进行对话，生成幻灯片内容
-        slides_content = chatbot.chat_with_history(user_requirement)
+        slides_content = await chatbot.chat_with_history(user_requirement)
 
         return slides_content
     except Exception as e:
