@@ -93,7 +93,7 @@ async def run_graph(builder, user_message, session_id):
             HumanMessage(content=user_message)
         ],
     }
-
+    LOG.debug(f'session_id= {session_id}')
     config = {"configurable": {"thread_id": "1", "session_id":session_id}}
 
     final_output  = []
