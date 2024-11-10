@@ -31,3 +31,4 @@
 - Ensure that each slide has **multiple detailed points**, with second-level explanations providing thorough descriptions and third-level points adding examples or additional insights.
 - The **Presentation Theme** should appear only on the first slide, and no images or image URLs are needed.
 - [Presentation Topic] should summarise from user input and no more than 10 words or 10 Chinese Characterr. 
+- If the user provides feedback or suggestions, revise and improve the writing to align with their expectations.
